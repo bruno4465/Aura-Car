@@ -1,0 +1,21 @@
+{
+  "name": "aura-car",
+  "version": "1.0.0",
+  "description": "Jogo de Fórmula 1 3D Cartoon com controle manual em 3ª pessoa, física realista de F1, IA dinâmica e autódromo completo.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "f1",
+    "racing-game",
+    "threejs",
+    "cartoon-3d",
+    "formula-one",
+    "game-development",
+    "unity"
+  ],
+  "author": "Aura Car Team",
+  "license": "MIT"
+}

@@ -1,0 +1,470 @@
+/* ===================================================
+   AURA CAR - F1 GRAND PRIX PRO STYLESHEET
+   =================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  background: #060911;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #fff;
+}
+
+canvas#gameCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 1;
+}
+
+/* ── Menu de Seleção ── */
+#menuScreen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #141c38 0%, #060810 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.title-logo {
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #f7c948;
+  text-shadow: 0 0 25px rgba(247,201,72,0.6), 4px 4px 0 #b87b00;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 15px;
+  letter-spacing: 5px;
+  color: #4fc3f7;
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+.menu-sec {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #8fa0c0;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.car-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 920px;
+}
+
+.car-card {
+  background: rgba(255,255,255,0.05);
+  border: 3px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 12px 18px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 150px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.car-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.12);
+  border-color: #4fc3f7;
+}
+
+.car-card.selected {
+  border-color: #f7c948;
+  background: rgba(247,201,72,0.18);
+  box-shadow: 0 0 22px rgba(247,201,72,0.45);
+}
+
+.car-badge { font-size: 30px; margin-bottom: 5px; }
+.car-name { font-weight: 800; font-size: 14px; color: #fff; margin-bottom: 3px; }
+.car-team { font-size: 11px; color: #f7c948; font-weight: 700; }
+.car-stats { font-size: 10px; color: #9ab; margin-top: 5px; }
+
+.diff-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.diff-btn {
+  background: rgba(255,255,255,0.06);
+  border: 3px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.diff-btn:hover { background: rgba(255,255,255,0.15); }
+.diff-btn.selected {
+  border-color: #4fc3f7;
+  background: rgba(79,195,247,0.2);
+  box-shadow: 0 0 15px rgba(79,195,247,0.4);
+}
+
+#startRaceBtn {
+  background: linear-gradient(90deg, #f7c948, #ff8c00);
+  border: none;
+  border-radius: 16px;
+  padding: 16px 54px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #0b0f19;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 6px 25px rgba(247,201,72,0.5);
+  transition: all 0.2s ease;
+}
+
+#startRaceBtn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 35px rgba(247,201,72,0.7);
+}
+
+/* ── HUD ── */
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+
+#positionBox {
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  background: rgba(8, 12, 22, 0.88);
+  border: 3px solid #ff4757;
+  border-radius: 16px;
+  padding: 10px 22px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+}
+
+#positionNum {
+  font-size: 42px;
+  font-weight: 900;
+  color: #ff4757;
+  line-height: 1;
+  text-shadow: 0 0 15px rgba(255,71,87,0.5);
+}
+
+#positionTotal {
+  font-size: 11px;
+  color: #a4b0be;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-top: 3px;
+}
+
+#lapBox {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(8, 12, 22, 0.88);
+  border: 3px solid #4fc3f7;
+  border-radius: 16px;
+  padding: 8px 36px;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+}
+
+#lapText {
+  font-size: 24px;
+  font-weight: 900;
+  color: #4fc3f7;
+  letter-spacing: 2px;
+}
+
+#lapObjective {
+  font-size: 11px;
+  color: #f7c948;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+#leaderboard {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  background: rgba(8, 12, 22, 0.88);
+  border: 2px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-size: 12px;
+  min-width: 195px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+}
+
+.lead-title {
+  font-size: 10px;
+  color: #8899aa;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.lead-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 6px;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+
+.lead-row.player-row {
+  background: rgba(247,201,72,0.25);
+  border: 1px solid #f7c948;
+  color: #f7c948;
+}
+
+#speedGauge {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  background: rgba(8, 12, 22, 0.90);
+  border: 3px solid #f7c948;
+  border-radius: 18px;
+  padding: 12px 28px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  min-width: 150px;
+}
+
+#gearBadge {
+  display: inline-block;
+  background: #ff4757;
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 2px 10px;
+  margin-bottom: 4px;
+}
+
+#speedVal {
+  font-size: 52px;
+  font-weight: 900;
+  color: #f7c948;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+#speedUnit {
+  font-size: 11px;
+  color: #8899aa;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-top: 3px;
+}
+
+#minimapCanvas {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  border-radius: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(8, 12, 22, 0.90);
+  box-shadow: 0 4px 22px rgba(0,0,0,0.7);
+}
+
+#actionAlert {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(0,0,0,0.8), 2px 2px 0 #000;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+#controlsHint {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.55);
+  font-size: 12px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+#offTrackAlert {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 71, 87, 0.88);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 1px;
+  display: none;
+  box-shadow: 0 0 15px rgba(255,71,87,0.7);
+}
+
+/* ── Luzes de Largada ── */
+#startLightsOverlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 50;
+  pointer-events: none;
+  background: rgba(0,0,0,0.35);
+}
+
+.gantry {
+  display: flex;
+  gap: 16px;
+  background: #111;
+  border: 4px solid #333;
+  border-radius: 16px;
+  padding: 16px 26px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+}
+
+.light-col { display: flex; flex-direction: column; gap: 10px; }
+.light-bulb {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #222;
+  border: 2px solid #444;
+  transition: background 0.1s ease;
+}
+
+.light-bulb.red { background: #ff1122; box-shadow: 0 0 25px #ff1122; }
+.light-bulb.green { background: #00ff66; box-shadow: 0 0 30px #00ff66; }
+
+#lightsMsg {
+  margin-top: 18px;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 0 0 15px #000;
+}
+
+#crashFlash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 60, 60, 0.45) 0%, transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 0.1s ease;
+}
+
+/* ── Pódio ── */
+#podiumScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 8, 16, 0.95);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  text-align: center;
+  padding: 30px;
+}
+
+.podium-trophy {
+  font-size: 80px;
+  margin-bottom: 10px;
+  animation: bounce 1s infinite alternate ease-in-out;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-12px); }
+}
+
+.podium-title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #f7c948;
+  text-shadow: 0 0 25px rgba(247,201,72,0.6);
+  margin-bottom: 6px;
+}
+
+.podium-sub {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.final-standings-card {
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 16px 24px;
+  min-width: 320px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.final-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 10px;
+  font-weight: 700;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.restart-btn {
+  background: linear-gradient(90deg, #f7c948, #ff8c00);
+  border: none;
+  border-radius: 14px;
+  padding: 16px 46px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #0b0f19;
+  cursor: pointer;
+  box-shadow: 0 6px 25px rgba(247,201,72,0.5);
+  transition: 0.2s;
+}
+
+.restart-btn:hover { transform: scale(1.06); }
